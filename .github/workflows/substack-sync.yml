@@ -1,0 +1,21 @@
+name: Latest Substack Posts Workflow
+on:
+  schedule:
+    # Runs automatically everyday at midnight UTC
+    - cron: '0 0 * * *'
+  workflow_dispatch: # Allows you to manually trigger updates instantly
+
+jobs:
+  update-readme-with-blog:
+    name: Update this repo's README with latest newsletter posts
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Pull RSS Feed
+        uses: gautamkrishnar/blog-post-workflow@v1
+        with:
+          # Using your specific publication subdomain feed structure
+          feed_list: "https://ruleofinnovation.substack.com/feed"
+          max_post_count: 4
