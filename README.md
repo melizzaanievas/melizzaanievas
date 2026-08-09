@@ -40,10 +40,6 @@ I write [Rule of Innovation](https://substack.com), a newsletter decoding the in
 [[X / Twitter]](https://x.com/MelizzaAnievas)
 [[LinkedIn]](https://linkedin.com/in/melizza-anievas)
 
-#### 🗞 Recent Briefings
-<!-- BLOG-POST-LIST:START -->
-<!-- BLOG-POST-LIST:END -->
-
 
 ---
 
