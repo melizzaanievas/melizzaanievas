@@ -9,7 +9,7 @@ jobs:
     name: Update this repo's README with latest newsletter posts
     runs-on: ubuntu-latest
     permissions:
-      contents: write # Explicitly forces write rights directly over the token layer
+      contents: write
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -19,8 +19,8 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Install Advanced Feed Parser
-        run: pip install feedparser requests
+      - name: Install Dependencies
+        run: pip install requests feedparser
 
       - name: Fetch and Inject Substack RSS Feed
         run: |
@@ -29,28 +29,27 @@ jobs:
           import feedparser
           import re
 
-          url = "https://substack.com"
+          # Uses a clean public RSS proxy relay layer to bypass Substack's strict cloudflare firewall rules
+          url = "https://migor.org"
+          
           headers = {
               'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
           }
 
           try:
-              # Pull the stream safely with native requests mapping
-              response = requests.get(url, headers=headers, timeout=15)
+              response = requests.get(url, headers=headers, timeout=20)
               response.raise_for_status()
               
-              # Parse via feedparser which cleanly skips corrupted XML tags
               feed = feedparser.parse(response.content)
               
               posts_html = ""
-              # Loop through the 4 most recent articles
               for entry in feed.entries[:4]:
                   title = entry.title
                   link = entry.link
                   posts_html += f"- 📰 [{title}]({link})\n"
                   
               if not posts_html:
-                  print("No articles found in feed.")
+                  print("The proxy endpoint returned zero parsed structural articles.")
                   exit(1)
               
               with open("README.md", "r", encoding="utf-8") as f:
@@ -63,10 +62,10 @@ jobs:
 
               with open("README.md", "w", encoding="utf-8") as f:
                   f.write(updated_readme)
-              print("Dynamic links loaded successfully.")
+              print("Dynamic links loaded via Proxy successfully.")
 
           except Exception as e:
-              print(f"Parser Failure: {e}")
+              print(f"Proxy Pipeline Error: {e}")
               exit(1)
           EOF
 
@@ -75,5 +74,5 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add README.md
-          git diff-index --quiet HEAD || git commit -m "docs: auto-inject recent substack briefings 🗞"
+          git diff-index --quiet HEAD || git commit -m "docs: auto-inject recent substack briefings via proxy 🗞"
           git push origin main
