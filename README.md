@@ -36,21 +36,14 @@ A minimalist toolkit optimized for rapid prototyping, automation, and deploying 
 
 I write [Rule of Innovation](https://substack.com), a newsletter decoding the intersection of geopolicy and fintech, mapping out where the next strategic business opportunities live.
 
-<p align="left">
-  <a href="https://substack.com" target="_blank">
-    <img src="https://shields.io" alt="Substack" />
-  </a>
-  <a href="https://x.com" target="_blank">
-    <img src="https://shields.io" alt="X / Twitter" />
-  </a>
-  <a href="https://linkedin.com" target="_blank">
-    <img src="https://shields.io" alt="LinkedIn" />
-  </a>
-</p>
+[![Substack](https://shields.io)](https://substack.com/@MelizzaAnievas)
+[![X / Twitter](https://shields.io)](https://x.com/MelizzaAnievas)
+[![LinkedIn](https://shields.io)](https://linkedin.com/in/melizza-anievas)
 
 #### 🗞 Recent Briefings
 <!-- BLOG-POST-LIST:START -->
 <!-- BLOG-POST-LIST:END -->
+
 
 ---
 
