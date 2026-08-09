@@ -1,9 +1,8 @@
 name: Latest Substack Posts Workflow
 on:
   schedule:
-    # Runs automatically everyday at midnight UTC
     - cron: '0 0 * * *'
-  workflow_dispatch: # Allows you to manually trigger updates instantly
+  workflow_dispatch: 
 
 jobs:
   update-readme-with-blog:
@@ -16,6 +15,7 @@ jobs:
       - name: Pull RSS Feed
         uses: gautamkrishnar/blog-post-workflow@v1
         with:
-          # Using your specific publication subdomain feed structure
           feed_list: "https://ruleofinnovation.substack.com/feed"
           max_post_count: 4
+          # Emulates a true desktop browser to bypass Substack's bot blocking layer
+          user_agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
