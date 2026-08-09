@@ -36,9 +36,9 @@ A minimalist toolkit optimized for rapid prototyping, automation, and deploying 
 
 I write [Rule of Innovation](https://substack.com), a newsletter decoding the intersection of geopolicy and fintech, mapping out where the next strategic business opportunities live.
 
-[![Substack]](https://substack.com/@MelizzaAnievas)
-[![X / Twitter]](https://x.com/MelizzaAnievas)
-[![LinkedIn]](https://linkedin.com/in/melizza-anievas)
+[[Substack]](https://substack.com/@MelizzaAnievas)
+[[X / Twitter]](https://x.com/MelizzaAnievas)
+[[LinkedIn]](https://linkedin.com/in/melizza-anievas)
 
 #### 🗞 Recent Briefings
 <!-- BLOG-POST-LIST:START -->
