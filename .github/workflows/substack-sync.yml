@@ -8,6 +8,8 @@ jobs:
   update-readme-with-blog:
     name: Update this repo's README with latest newsletter posts
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # Explicitly forces write rights directly over the token layer
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -17,16 +19,15 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Install Network Libraries
-        run: pip install requests
+      - name: Install Advanced Feed Parser
+        run: pip install feedparser requests
 
       - name: Fetch and Inject Substack RSS Feed
         run: |
           python - <<'EOF'
           import requests
-          import xml.etree.ElementTree as ET
+          import feedparser
           import re
-          import html
 
           url = "https://substack.com"
           headers = {
@@ -34,30 +35,24 @@ jobs:
           }
 
           try:
-              # Download stream cleanly via requests 
+              # Pull the stream safely with native requests mapping
               response = requests.get(url, headers=headers, timeout=15)
               response.raise_for_status()
               
-              # Enforce clear UTF-8 character conversion mapping
-              feed_data = response.content.decode('utf-8')
-              
-              root = ET.fromstring(feed_data)
-              channel = root.find('channel')
-              items = channel.findall('item') if channel is not None else []
+              # Parse via feedparser which cleanly skips corrupted XML tags
+              feed = feedparser.parse(response.content)
               
               posts_html = ""
-              # Pull the 4 most recent articles cleanly
-              for item in items[:4]:
-                  title_elem = item.find('title')
-                  link_elem = item.find('link')
+              # Loop through the 4 most recent articles
+              for entry in feed.entries[:4]:
+                  title = entry.title
+                  link = entry.link
+                  posts_html += f"- 📰 [{title}]({link})\n"
                   
-                  if title_elem is not None and link_elem is not None:
-                      # Decode edge html character entities safely
-                      title = html.unescape(title_elem.text)
-                      link = link_elem.text.strip()
-                      posts_html += f"- 📰 [{title}]({link})\n"
+              if not posts_html:
+                  print("No articles found in feed.")
+                  exit(1)
               
-              # Open and modify target profile structure
               with open("README.md", "r", encoding="utf-8") as f:
                   readme = f.read()
 
@@ -68,10 +63,10 @@ jobs:
 
               with open("README.md", "w", encoding="utf-8") as f:
                   f.write(updated_readme)
-              print("Substack RSS layout injected successfully without errors.")
+              print("Dynamic links loaded successfully.")
 
           except Exception as e:
-              print(f"Execution Error Handler Triggered: {e}")
+              print(f"Parser Failure: {e}")
               exit(1)
           EOF
 
