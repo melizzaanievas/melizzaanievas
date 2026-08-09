@@ -1,16 +1,70 @@
-## Hi there 👋
+<div align="center">
+  <!-- Warm Cozy Ethereal Animation -->
+  <img src="https://giphy.com" width="140px" alt="cozy cafe aesthetic"/>
+  
+  <h1>✨ Melizza Anievas</h1>
+  <p><i>Strategist • Co-Founder • Builder</i></p>
 
-<!--
-**melizzaanievas/melizzaanievas** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+  <!-- Profile Views Counter styled in a warm gold/bronze theme -->
+  <img src="https://komarev.com" alt="profile views" />
+</div>
 
-Here are some ideas to get you started:
+<br/>
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+### 👋 Hi, I'm Melizza
+
+I am a strategist in digital finance, policy, and go-to-market (GTM) execution, as well as the Co-Founder of [Women in Web3 HK](http://womeninweb3hk.com). I am an avid self-learner passionate about building workflows, automated systems, and products from 0.
+
+- 🌐 **Focus:** Digital Finance Strategy, Web3 Policy, and Go-To-Market (GTM) Acceleration
+- 🚀 **Community:** Co-Founder, [Women in Web3 HK](http://womeninweb3hk.com) 🇭🇰
+- 🛠️ **Building:** Vibe-coding open-source tools, Telegram bots, and automated dashboards
+
+---
+
+### ☕ My Tech Stack & Toolkit
+
+A minimalist toolkit optimized for rapid prototyping, automation, and deploying AI-driven systems.
+
+<p align="left">
+  <img src="https://shields.io" />
+  <img src="https://shields.io" />
+  <img src="https://shields.io" />
+  <img src="https://shields.io" />
+</p>
+
+---
+
+### 📦 Featured Projects
+
+* 🏛️ **[Global Fintech Policy Tracker](https://github.com/melizzaanievas/Global-Fintech-Policy)** — An institutional-grade data matrix and dynamic dashboard mapping regulatory shifts (SFC, VARA, MAS, MiCA) to actionable macroeconomic indices. Built using Streamlit, Plotly, and Airtable.
+* 📱 **[Opportunity Tracker](https://github.com)** — A mobile-first Telegram bot and web dashboard built to track grants, jobs, and hackathons on the fly.
+
+---
+
+### 📝 Reading & Thinking
+
+I write [Rule of Innovation](https://substack.com), a newsletter decoding the intersection of geopolicy and fintech, mapping out where the next strategic business opportunities live.
+
+<p align="left">
+  <a href="https://substack.com" target="_blank">
+    <img src="https://shields.io" alt="Substack" />
+  </a>
+  <a href="https://x.com" target="_blank">
+    <img src="https://shields.io" alt="X / Twitter" />
+  </a>
+  <a href="https://linkedin.com" target="_blank">
+    <img src="https://shields.io" alt="LinkedIn" />
+  </a>
+</p>
+
+---
+
+### 🌙 Late Night Coding Stats
+
+<div align="center">
+  <!-- Uses the 'gruvbox' theme for a cozy, warm retro/gold aesthetic background -->
+  <img src="https://vercel.app" alt="Melizza's GitHub Stats" />
+</div>
+
+<br/>
+<p align="center"><i>Building things from 0, one cup of coffee at a time... ☕✨</i></p>
