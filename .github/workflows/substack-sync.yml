@@ -12,10 +12,62 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Pull RSS Feed
-        uses: gautamkrishnar/blog-post-workflow@v1
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          feed_list: "https://ruleofinnovation.substack.com/feed"
-          max_post_count: 4
-          # Emulates a true desktop browser to bypass Substack's bot blocking layer
-          user_agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
+          python-python-version: '3.10'
+
+      - name: Install Feed Parser
+        run: pip install feedparser
+
+      - name: Fetch and Inject Substack RSS Feed
+        run: |
+          python - <<'EOF'
+          import urllib.request
+          import feedparser
+          import re
+
+          url = "https://ruleofinnovation.substack.com/feed"
+          req = urllib.request.Request(
+              url, 
+              headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'}
+          )
+
+          try:
+              html = urllib.request.urlopen(req).read()
+              feed = feedparser.parse(html)
+              
+              posts_html = ""
+              # Fetches the top 4 recent entries
+              for entry in feed.entries[:4]:
+                  title = entry.title
+                  link = entry.link
+                  posts_html += f"- 📰 [{title}]({link})\n"
+              
+              # Read current README structure
+              with open("README.md", "r", encoding="utf-8") as f:
+                  readme = f.read()
+
+              # Regex target pattern to find comments hooks
+              pattern = r"(<!-- BLOG-POST-LIST:START -->)(.*?)(<!-- BLOG-POST-LIST:END -->)"
+              replacement = f"\\1\n{posts_html}\\3"
+              
+              updated_readme = re.sub(pattern, replacement, readme, flags=re.DOTALL)
+
+              with open("README.md", "w", encoding="utf-8") as f:
+                  f.write(updated_readme)
+                  print("Substack RSS Feed injected successfully.")
+
+          except Exception as e:
+              print(f"Execution Error: {e}")
+              exit(1)
+          EOF
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          # Only commits if changes to README exist to avoid false breaking workflows
+          git diff-index --quiet HEAD || git commit -m "docs: auto-inject recent substack briefings 🗞"
+          git push origin main
