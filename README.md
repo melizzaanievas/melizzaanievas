@@ -1,12 +1,8 @@
 <div align="center">
-  <!-- Warm Cozy Ethereal Animation -->
-  <img src="https://giphy.com" width="140px" alt="cozy cafe aesthetic"/>
   
   <h1>✨ Melizza Anievas</h1>
   <p><i>Strategist • Co-Founder • Builder</i></p>
 
-  <!-- Profile Views Counter styled in a warm gold/bronze theme -->
-  <img src="https://komarev.com" alt="profile views" />
 </div>
 
 <br/>
