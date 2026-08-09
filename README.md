@@ -9,7 +9,7 @@
 
 ### 👋 Hi, I'm Melizza
 
-I am a strategist in digital finance, policy, and go-to-market (GTM) execution, as well as the Co-Founder of [Women in Web3 HK](http://womeninweb3hk.com). I am an avid self-learner passionate about building workflows, automated systems, and products from 0.
+I am a strategist in digital finance, policy, and go-to-market (GTM) execution, as well as the Co-Founder of [Women in Web3 HK](http://womeninweb3hk.com). I am a self-learner passionate about building workflows, automated systems, and products from 0.
 
 - 🌐 **Focus:** Digital Finance Strategy, Web3 Policy, and Go-To-Market (GTM) Acceleration
 - 🚀 **Community:** Co-Founder, [Women in Web3 HK](http://womeninweb3hk.com) 🇭🇰
@@ -48,14 +48,10 @@ I write [Rule of Innovation](https://substack.com), a newsletter decoding the in
   </a>
 </p>
 
+#### 🗞 Recent Briefings
+<!-- BLOG-POST-LIST:START -->
+<!-- BLOG-POST-LIST:END -->
+
 ---
 
-### 🌙 Late Night Coding Stats
-
-<div align="center">
-  <!-- Uses the 'gruvbox' theme for a cozy, warm retro/gold aesthetic background -->
-  <img src="https://vercel.app" alt="Melizza's GitHub Stats" />
-</div>
-
-<br/>
 <p align="center"><i>Building things from 0, one cup of coffee at a time... ☕✨</i></p>
