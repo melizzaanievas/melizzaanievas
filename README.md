@@ -19,13 +19,8 @@ I am a strategist in digital finance, policy, and go-to-market (GTM) execution, 
 
 ### ☕ My Tech Stack & Toolkit
 
-A minimalist toolkit optimized for rapid prototyping, automation, and deploying AI-driven systems.
+A minimalist toolkit optimized for rapid prototyping, automation, and deploying AI-driven systems: Python, Telegram Bot Framework, Plotly, Replit Agent, Airtable API.
 
-<p align="left">
-  <img src="https://shields.io" />
-  <img src="https://shields.io" />
-  <img src="https://shields.io" />
-  <img src="https://shields.io" />
 </p>
 
 ---
