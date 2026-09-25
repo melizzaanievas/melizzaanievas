@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -25,53 +26,44 @@ jobs:
       - name: Fetch latest Substack posts
         run: |
           python - <<'EOF'
+          import json
           import re
-          import xml.etree.ElementTree as ET
 
           import requests
 
           feed_url = "https://ruleofinnovation.substack.com/feed"
+          proxy_url = f"https://api.rss2json.com/v1/api.json?rss_url={feed_url}"
           headers = {
               "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
           }
 
-          print("Fetching:", feed_url)
-          response = requests.get(feed_url, headers=headers, timeout=30)
+          print("Fetching:", proxy_url)
+          response = requests.get(proxy_url, headers=headers, timeout=30)
           print("Status:", response.status_code)
           print("Content-Type:", response.headers.get("Content-Type"))
-          print(response.text[:1000])
+          print(response.text[:500])
 
           if response.status_code != 200:
-              raise RuntimeError(f"Feed request failed: {response.status_code}")
+              raise RuntimeError(f"RSS proxy request failed: {response.status_code}")
 
           try:
-              root = ET.fromstring(response.content)
+              data = response.json()
           except Exception as e:
-              print("XML parse failed:", e)
+              print("JSON parse failed:", e)
               raise
 
-          items = root.findall(".//item")
-          if not items:
-              items = root.findall(".//{http://www.w3.org/2005/Atom}entry")
-
+          items = data.get("items") or []
           print("Found items:", len(items))
 
           posts = []
           for item in items[:5]:
-              if item.tag.endswith("item"):
-                  title = (item.findtext("title") or "").strip()
-                  link = (item.findtext("link") or "").strip()
-              else:
-                  title = (item.findtext("{http://www.w3.org/2005/Atom}title") or "").strip()
-                  link_tag = item.find("{http://www.w3.org/2005/Atom}link")
-                  link = (link_tag.get("href") if link_tag is not None else "").strip()
-
+              title = (item.get("title") or "").strip()
+              link = (item.get("link") or "").strip()
               if title and link:
                   posts.append(f"- 📰 [{title}]({link})")
 
-          print("Posts collected:", len(posts))
           if not posts:
-              raise RuntimeError("No posts returned by feed.")
+              raise RuntimeError("No Substack posts returned by the RSS proxy.")
 
           with open("README.md", "r", encoding="utf-8") as f:
               readme = f.read()
@@ -80,19 +72,13 @@ jobs:
           replacement = "\\1\n" + "\n".join(posts) + "\n\\3"
           updated_readme = re.sub(pattern, replacement, readme, flags=re.DOTALL)
 
-          print(
-              "Markers found:",
-              "<!-- BLOG-POST-LIST:START -->" in readme,
-              "<!-- BLOG-POST-LIST:END -->" in readme,
-          )
-
           if updated_readme == readme:
               raise RuntimeError("README markers were not found or replacement did not change the file.")
 
           with open("README.md", "w", encoding="utf-8") as f:
               f.write(updated_readme)
 
-          print("SUCCESS")
+          print("SUCCESS: latest Substack posts synced to README.")
           EOF
 
       - name: Commit and Push Changes
