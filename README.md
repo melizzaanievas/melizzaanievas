@@ -27,6 +27,9 @@ A minimalist toolkit optimized for rapid prototyping, automation, and deploying 
 
 ### 📝 Reading & Thinking
 
+I write [Rule of Innovation](https://ruleofinnovation.substack.com/), a newsletter decoding the intersection of geopolicy and fintech, mapping out where the next strategic business opportunities live.
+
+#### Latest Articles on Substack
 <!-- BLOG-POST-LIST:START -->
 - 📰 [Is the Global Economy Breaking?](https://ruleofinnovation.substack.com/p/is-the-global-economy-breaking)
 - 📰 [Why Wall Street Isn’t Replacing Crypto (And Crypto Isn’t Replacing Wall Street)](https://ruleofinnovation.substack.com/p/why-wall-street-isnt-replacing-crypto)
@@ -34,20 +37,11 @@ A minimalist toolkit optimized for rapid prototyping, automation, and deploying 
 - 📰 [I Spent 6 Months Interviewing 30+ Fintech Executives About the Future of Digital Assets](https://ruleofinnovation.substack.com/p/i-spent-6-months-interviewing-30)
 <!-- BLOG-POST-LIST:END -->
 
-I write [Rule of Innovation](https://ruleofinnovation.substack.com/), a newsletter decoding the intersection of geopolicy and fintech, mapping out where the next strategic business opportunities live.
+
 
 [[Substack]](https://substack.com/@MelizzaAnievas)
 [[X / Twitter]](https://x.com/MelizzaAnievas)
 [[LinkedIn]](https://linkedin.com/in/melizza-anievas)
-
----
-
-<!-- BLOG-POST-LIST:START -->
-- 📰 [Is the Global Economy Breaking?](https://ruleofinnovation.substack.com/p/is-the-global-economy-breaking)
-- 📰 [Why Wall Street Isn’t Replacing Crypto (And Crypto Isn’t Replacing Wall Street)](https://ruleofinnovation.substack.com/p/why-wall-street-isnt-replacing-crypto)
-- 📰 [Whitepapers Are Where Tech Policy Goes to Die. Let’s Build Instead.](https://ruleofinnovation.substack.com/p/whitepapers-are-where-tech-policy)
-- 📰 [I Spent 6 Months Interviewing 30+ Fintech Executives About the Future of Digital Assets](https://ruleofinnovation.substack.com/p/i-spent-6-months-interviewing-30)
-<!-- BLOG-POST-LIST:END -->
 
 ---
 
