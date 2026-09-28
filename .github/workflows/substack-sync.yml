@@ -1,7 +1,8 @@
 name: Latest Substack Posts Workflow
+
 on:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: "0 0 * * *"
   workflow_dispatch:
 
 jobs:
@@ -18,62 +19,80 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: "3.10"
 
       - name: Install dependencies
-        run: pip install requests
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests feedparser
 
       - name: Fetch latest Substack posts
         run: |
           python - <<'EOF'
-          import json
+          import html
           import re
+          import sys
 
+          import feedparser
           import requests
 
-          feed_url = "https://ruleofinnovation.substack.com/feed"
-          proxy_url = f"https://api.rss2json.com/v1/api.json?rss_url={feed_url}"
+          feed_urls = [
+              "https://ruleofinnovation.substack.com/feed",
+              "https://ruleofinnovation.substack.com/feed.xml",
+          ]
+
           headers = {
-              "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
+              "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
           }
 
-          print("Fetching:", proxy_url)
-          response = requests.get(proxy_url, headers=headers, timeout=30)
-          print("Status:", response.status_code)
-          print("Content-Type:", response.headers.get("Content-Type"))
-          print(response.text[:500])
+          entries = []
+          for feed_url in feed_urls:
+              try:
+                  print(f"Fetching: {feed_url}")
+                  response = requests.get(feed_url, headers=headers, timeout=30)
+                  print(f"Status: {response.status_code}")
+                  if response.status_code != 200:
+                      print(response.text[:500])
+                      continue
 
-          if response.status_code != 200:
-              raise RuntimeError(f"RSS proxy request failed: {response.status_code}")
+                  parsed = feedparser.parse(response.text)
+                  new_entries = getattr(parsed, "entries", None) or []
+                  print(f"Parsed entries from {feed_url}: {len(new_entries)}")
+                  if new_entries:
+                      entries = new_entries[:5]
+                      break
+              except Exception as exc:
+                  print(f"Error fetching {feed_url}: {exc}")
 
-          try:
-              data = response.json()
-          except Exception as e:
-              print("JSON parse failed:", e)
-              raise
-
-          items = data.get("items") or []
-          print("Found items:", len(items))
+          if not entries:
+              print("No Substack posts available; skipping README update.")
+              raise SystemExit(0)
 
           posts = []
-          for item in items[:5]:
-              title = (item.get("title") or "").strip()
-              link = (item.get("link") or "").strip()
+          for entry in entries:
+              title = html.unescape((entry.get("title") or "").strip())
+              link = (entry.get("link") or "").strip()
               if title and link:
                   posts.append(f"- 📰 [{title}]({link})")
 
           if not posts:
-              raise RuntimeError("No Substack posts returned by the RSS proxy.")
+              print("No valid post metadata found; skipping README update.")
+              raise SystemExit(0)
 
-          with open("README.md", "r", encoding="utf-8") as f:
-              readme = f.read()
+          try:
+              with open("README.md", "r", encoding="utf-8") as f:
+                  readme = f.read()
+          except FileNotFoundError:
+              print("README.md not found; skipping update.")
+              raise SystemExit(0)
 
           pattern = r"(<!-- BLOG-POST-LIST:START -->)(.*?)(<!-- BLOG-POST-LIST:END -->)"
           replacement = "\\1\n" + "\n".join(posts) + "\n\\3"
           updated_readme = re.sub(pattern, replacement, readme, flags=re.DOTALL)
 
           if updated_readme == readme:
-              raise RuntimeError("README markers were not found or replacement did not change the file.")
+              print("README markers not found or replacement did not change the file.")
+              raise SystemExit(0)
 
           with open("README.md", "w", encoding="utf-8") as f:
               f.write(updated_readme)
@@ -86,5 +105,9 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add README.md
-          git diff-index --quiet HEAD || git commit -m "docs: sync latest newsletter posts"
-          git push origin main
+          if ! git diff --cached --quiet; then
+            git commit -m "docs: sync latest newsletter posts"
+            git push origin HEAD
+          else
+            echo "No README changes to commit."
+          fi
