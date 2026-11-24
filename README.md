@@ -11,7 +11,7 @@
 
 I am a strategist in digital finance, policy, and go-to-market (GTM) execution, as well as the Co-Founder of [Women in Web3 HK](http://womeninweb3hk.com). I am a self-learner passionate about building things that matter, experimenting with AI-powered workflows, and creating systems that make decision-making sharper.
 
-- 🌐 **Focus:** Digital Finance Strategy, Web3 Policy, and Go-To-Market (GTM) Acceleration
+- 🌐 **Focus:** Digital Finance Strategy, Digital Policy i.e. Web3, AI, Digital Assets, Copright/IP, and Go-To-Market (GTM) Acceleration
 - 🚀 **Community:** Co-Founder, [Women in Web3 HK](http://womeninweb3hk.com) 🇭🇰
 - 🛠️ **Building:** Vibe-coding open-source tools, Telegram bots, and automated dashboards
 
